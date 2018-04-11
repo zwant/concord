@@ -1,6 +1,8 @@
 package se.paldan.concord
 
-import com.typesafe.config.*
+import com.typesafe.config.Config
+import com.typesafe.config.ConfigException
+import com.typesafe.config.ConfigValueFactory
 import se.paldan.concord.exceptions.InvalidConfigurationException
 import se.paldan.concord.exceptions.InvalidEnvironmentConfigurationException
 import se.paldan.concord.exceptions.NotAllowedEnvironmentConfigurationException
@@ -24,6 +26,9 @@ class Configurator(private val environment: EnvironmentConfiguration,
                    private val fallbackLocalConfigLoader: ConfigLoader = ResourceFileLoader("local"),
                    private val baseConfigLoader: ConfigLoader = ResourceFileLoader("base"),
                    private val environmentConfigLoader: ConfigLoader = ResourceFileLoader("environments")) {
+    constructor(envVarPrefix: String) :
+            this(EnvironmentConfiguration(envVarPrefix))
+
     companion object {
         private const val ALLOWED_ENVIRONMENTS_CONFIG_NAME = "allowed-environments"
         private const val SELECTED_ENVIRONMENT_CONFIG_NAME = "current-environment"
