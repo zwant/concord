@@ -20,7 +20,7 @@ The current environment config you want to load is defined by an env variable, t
 
 For example:
 ```
-val loader = Configurator(EnvironmentConfiguration("EXAMPLE_APP"))
+val loader = Configurator("EXAMPLE_APP")
 val config = loader.load()
 ```
 will loook for an env var called `EXAMPLE_APP_ENVIRONMENT`. It will then check if that envioronment is allowed, according to the setting in the local config file (see below for details). If the selected environment isn't allowed by the local config, the library will throw a `NotAllowedEnvironmentConfigurationException` on loading the configuration:
