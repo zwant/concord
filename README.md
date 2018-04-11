@@ -30,6 +30,8 @@ Exception in thread "main" se.paldan.concord.exceptions.NotAllowedEnvironmentCon
 	at se.paldan.concord.example.ExampleAppKt.main(ExampleApp.kt:8)
 ```
 this prevents unexpected problems arising from for example an env-var being inherited through SSH sessions etc.
+
+The currently selected environment is available in the configuration as `current-environment`. This config can be used for example to safe-guard test-suites to only be able to run in a certain environment, or for example a db-cleanup script not allowing to be run in production.
  
 Base Config
 --------
