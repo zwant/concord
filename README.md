@@ -14,6 +14,23 @@ Loads the following files (lower in list takes precedence over higher in list):
 
 All configuration files are written in HOCON syntax.
 
+Selecting the current environment
+--------
+The current environment config you want to load is defined by an env variable, the name of which is defined by the params sent to the `Configurator` constructor.
+
+For example:
+```
+val loader = Configurator(EnvironmentConfiguration("EXAMPLE_APP"))
+val config = loader.load()
+```
+will loook for an env var called `EXAMPLE_APP_ENVIRONMENT`. It will then check if that envioronment is allowed, according to the setting in the local config file (see below for details). If the selected environment isn't allowed by the local config, the library will throw a `NotAllowedEnvironmentConfigurationException` on loading the configuration:
+```
+Exception in thread "main" se.paldan.concord.exceptions.NotAllowedEnvironmentConfigurationException: The selected environment [test] is not allowed here. Allowed are: [dev]
+	at se.paldan.concord.Configurator.load(Configurator.kt:60)
+	at se.paldan.concord.example.ExampleAppKt.main(ExampleApp.kt:8)
+```
+this prevents unexpected problems arising from for example an env-var being inherited through SSH sessions etc.
+ 
 Base Config
 --------
 Defines configuration that is common across all environments. This could be for example which plugins to run or business-logic configuration.
